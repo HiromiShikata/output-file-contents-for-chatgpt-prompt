@@ -4,18 +4,29 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
-## How to use this template
+## Usage
+```
+npx output-file-contents-for-chatgpt-prompt -i ./src/adapter/repositories/testdata
+```
 
-1. Replace output-file-contents-for-chatgpt-prompt to repository name
+### Output
 
-   ```
-   find -type f | xargs sed -i 's/output-file-contents-for-chatgpt-prompt/your-repository-name/g'
-   ```
+```
+// src/adapter/repositories/testdata/File1.txt
+Content of File1.txt
 
-1. Setup Circleci
 
-   https://app.circleci.com/projects/
+// src/adapter/repositories/testdata/File2.txt
+Content of File2.txt
 
-1. Grant write permission to gh-actions
 
-   https://github.com/HiromiShikata/output-file-contents-for-chatgpt-prompt/settings/actions
+// src/adapter/repositories/testdata/dir1/File1.txt
+Content of File1.txt
+```
+
+
+### Copy to clipboard
+#### Ubuntu
+```
+npx output-file-contents-for-chatgpt-prompt -i ./src/adapter/repositories/testdata | xclip -sel clip
+```
