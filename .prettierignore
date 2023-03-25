@@ -7,3 +7,8 @@
 .idea
 reports
 dist
+.npmignore
+bin
+*.map
+*.txt
+
