@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from 'commander';
 import { GetFileContentsTextUseCase } from './domain/usecases/GetFileContentsTextUseCase';
 import { FsFileRepository } from './adapter/repositories/FsFileRepository';
