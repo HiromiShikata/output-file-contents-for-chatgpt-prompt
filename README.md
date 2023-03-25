@@ -5,6 +5,7 @@
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 ## Usage
+
 ```
 npx output-file-contents-for-chatgpt-prompt -i ./src/adapter/repositories/testdata
 ```
@@ -24,9 +25,10 @@ Content of File2.txt
 Content of File1.txt
 ```
 
-
 ### Copy to clipboard
+
 #### Ubuntu
+
 ```
 npx output-file-contents-for-chatgpt-prompt -i ./src/adapter/repositories/testdata | xclip -sel clip
 ```
