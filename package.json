@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "output-file-contents-for-chatgpt-prompt": "./bin/index.js"
+  },
   "scripts": {
     "prettier": "prettier --write '**/*'",
     "lint": "eslint src",
