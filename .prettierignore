@@ -10,4 +10,5 @@ dist
 .npmignore
 bin
 *.map
+*.txt
 
