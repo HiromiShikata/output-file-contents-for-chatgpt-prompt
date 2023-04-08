@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import { GetFileContentsTextUseCase } from './domain/usecases/GetFileContentsTextUseCase';
 import { FsFileRepository } from './adapter/repositories/FsFileRepository';
+import { TsAstRepository } from './adapter/repositories/TsAstRepository';
 
 const program = new Command();
 program
@@ -14,6 +15,7 @@ program
     }
     const fileContentsText = await new GetFileContentsTextUseCase(
       new FsFileRepository(),
+      new TsAstRepository(),
     ).run(input);
     console.log(fileContentsText);
   });
