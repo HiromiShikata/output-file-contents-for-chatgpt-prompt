@@ -1,64 +1,61 @@
 import { FsFileRepository } from './FsFileRepository';
-import * as path from 'path';
 
 describe('FsFileRepository', () => {
   const fileRepository = new FsFileRepository();
 
   it('success', async () => {
-    const dirPath = './src/adapter/repositories/testdata';
+    const dirPath = './testdata/independent-project';
     const result = await fileRepository.get(dirPath);
 
     expect(result).toEqual([
       {
         content:
-          "// ./src/adapter/repositories/testdata/File1.ts\nimport { File2 } from './File2';\nexport type File1 = {\n  file2: File2;\n};\n",
-        path: 'src/adapter/repositories/testdata/File1.ts',
+          "// ./File1.ts\nimport { File2 } from './File2';\nexport type File1 = {\n  file2: File2;\n};\n",
+        path: 'testdata/independent-project/File1.ts',
       },
       {
         content:
-          "// ./src/adapter/repositories/testdata/File2.ts\nimport { File3 } from './dir1/File3';\nexport interface File2 {\n  file3: File3;\n}\n",
-        path: 'src/adapter/repositories/testdata/File2.ts',
+          "// ./File2.ts\nimport { File3 } from './dir1/File3';\nexport interface File2 {\n  file3: File3;\n}\n",
+        path: 'testdata/independent-project/File2.ts',
+      },
+      {
+        content: '// ./dir1/File3.ts\nexport class File3 {}\n',
+        path: 'testdata/independent-project/dir1/File3.ts',
       },
       {
         content:
-          '// ./src/adapter/repositories/testdata/dir1/File3.ts\nexport class File3 {}\n',
-        path: 'src/adapter/repositories/testdata/dir1/File3.ts',
+          '{\n  "name": "independent-project",\n  "version": "1.0.0",\n  "lockfileVersion": 3,\n  "requires": true,\n  "packages": {\n    "": {\n      "name": "independent-project",\n      "version": "1.0.0",\n      "license": "ISC"\n    }\n  }\n}\n',
+        path: 'testdata/independent-project/package-lock.json',
+      },
+      {
+        content:
+          '{\n  "name": "independent-project",\n  "version": "1.0.0",\n  "description": "",\n  "main": "index.js",\n  "scripts": {\n    "test": "echo \\"Error: no test specified\\" && exit 1"\n  },\n  "keywords": [],\n  "author": "",\n  "license": "ISC"\n}\n',
+        path: 'testdata/independent-project/package.json',
       },
     ]);
   });
 
   it('reads files from a directory', async () => {
-    const dirPath = './src/adapter/repositories/testdata';
+    const dirPath = './testdata/dependent-project/dir1';
     const result = await fileRepository.get(dirPath);
 
     expect(result).toEqual([
       {
-        content:
-          "// ./src/adapter/repositories/testdata/File1.ts\nimport { File2 } from './File2';\nexport type File1 = {\n  file2: File2;\n};\n",
-        path: path.normalize('src/adapter/repositories/testdata/File1.ts'),
-      },
-      {
-        content:
-          "// ./src/adapter/repositories/testdata/File2.ts\nimport { File3 } from './dir1/File3';\nexport interface File2 {\n  file3: File3;\n}\n",
-        path: path.normalize('src/adapter/repositories/testdata/File2.ts'),
-      },
-      {
-        content:
-          '// ./src/adapter/repositories/testdata/dir1/File3.ts\nexport class File3 {}\n',
-        path: path.normalize('src/adapter/repositories/testdata/dir1/File3.ts'),
+        content: '// ./dir1/File3.ts\nexport class File3 {}\n',
+        path: 'testdata/dependent-project/dir1/File3.ts',
       },
     ]);
   });
 
   it('reads a single file', async () => {
-    const filePath = './src/adapter/repositories/testdata/File1.ts';
+    const filePath = './testdata/independent-project/File1.ts';
     const result = await fileRepository.get(filePath);
 
     expect(result).toEqual([
       {
         content:
-          "// ./src/adapter/repositories/testdata/File1.ts\nimport { File2 } from './File2';\nexport type File1 = {\n  file2: File2;\n};\n",
-        path: './src/adapter/repositories/testdata/File1.ts',
+          "// ./File1.ts\nimport { File2 } from './File2';\nexport type File1 = {\n  file2: File2;\n};\n",
+        path: './testdata/independent-project/File1.ts',
       },
     ]);
   });
