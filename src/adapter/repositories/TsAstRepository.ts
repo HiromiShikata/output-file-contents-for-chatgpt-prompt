@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as ts from 'typescript';
 import { AstRepository } from '../../domain/usecases/adapter-interfaces/AstRepository';
 import * as path from 'path';
+import { getNodeModulePaths } from './utilities/getNodeModulesPaths';
 
 export class TsAstRepository implements AstRepository {
   getAllRelatedFilePaths = async (filePath: string): Promise<string[]> => {
@@ -36,13 +37,26 @@ export class TsAstRepository implements AstRepository {
     );
 
     const dirPath = path.dirname(filePath);
+    const nodeModulesPath = await getNodeModulePaths(filePath);
 
     const visitNode = async (node: ts.Node): Promise<void> => {
       if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
         const moduleSpecifier = node.moduleSpecifier;
         if (moduleSpecifier && ts.isStringLiteral(moduleSpecifier)) {
           const relativePath = moduleSpecifier.text;
-          const absolutePath = path.join(dirPath, relativePath) + '.ts';
+          const nodeModulePath: string | undefined = nodeModulesPath.find(
+            (nodeModule) =>
+              relativePath.startsWith(
+                nodeModule.substring(nodeModule.lastIndexOf('/') + 1),
+              ),
+          );
+          if (!relativePath.startsWith('.') && nodeModulePath === undefined) {
+            return;
+          }
+          const absolutePath = nodeModulePath
+            ? path.join(nodeModulePath.replace(/\/.*?$/, ''), relativePath) +
+              '.ts'
+            : path.join(dirPath, relativePath) + '.ts';
           if (!visitedPaths.has(absolutePath)) {
             await this.processFilePath(absolutePath, visitedPaths);
           }
