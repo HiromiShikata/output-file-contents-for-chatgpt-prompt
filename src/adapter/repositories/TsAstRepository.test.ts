@@ -8,9 +8,8 @@ describe('TsAstRepository', () => {
   describe('getAllRelatedFilePaths', () => {
     it('should return an array of related file paths for testdata files', async () => {
       const testFilePath = './testdata/dependent-project/File1.ts';
-      const filePaths = await tsAstRepository.getAllRelatedFilePaths(
-        testFilePath,
-      );
+      const filePaths =
+        await tsAstRepository.getAllRelatedFilePaths(testFilePath);
 
       expect(filePaths).toEqual([
         'testdata/dependent-project/File1.ts',

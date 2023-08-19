@@ -9,9 +9,8 @@ export class GetFileContentsTextUseCase {
   ) {}
 
   run = async (path: string): Promise<string> => {
-    const relatedFilePaths = await this.astRepository.getAllRelatedFilePaths(
-      path,
-    );
+    const relatedFilePaths =
+      await this.astRepository.getAllRelatedFilePaths(path);
 
     const files = await Promise.all(
       relatedFilePaths.map((filePath) => this.fileRepository.get(filePath)),
