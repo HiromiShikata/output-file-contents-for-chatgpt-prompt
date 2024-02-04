@@ -10,8 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
-    "declaration": true,
+    "declaration": true
   },
   "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*"],
+  "exclude": ["node_modules", "**/__tests__/*"]
 }
