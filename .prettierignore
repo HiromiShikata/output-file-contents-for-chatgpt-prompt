@@ -11,4 +11,5 @@ dist
 bin
 *.map
 *.txt
+CODEOWNERS
 
